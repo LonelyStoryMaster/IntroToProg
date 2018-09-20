@@ -22,3 +22,7 @@ if selection_two == '-':
 else:
     selection_two_price = auto_services[selection_two]
     print("Service 2: %s, $%d" % (selection_two, selection_two_price))
+
+total = selection_one_price + selection_two_price
+
+print("\nTotal: $%d" % total)
