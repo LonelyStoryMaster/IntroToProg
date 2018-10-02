@@ -1,0 +1,7 @@
+for ch in text
+	until ch isn't ' '
+		add ch to space
+	when ch isn't ' '
+		add space to spacing
+		reset space
+		don't add letters
