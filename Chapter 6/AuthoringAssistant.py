@@ -10,7 +10,7 @@ user_option = ' '
 spacing = []
 
 def save_spacing(user_text):
-    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    #alphabet = 'abcdefghijklmnopqrstuvwxyz'
     space = ''
     for ch in user_text:
         if ch == ' ':
