@@ -1,17 +1,16 @@
-user_string = ''
+user_string = ' '
 words = []
 comma = ","
-comma_found = False
-done = False
 
 def get_string():
-    global user_string, comma_found, done
+    global user_string
     while comma not in user_string:
+        if user_string == 'q':
+            #fuckingStop()
+            break
         print("Error: No comma found.\n")
         user_string = input("Enter input string:\n")
     else:
-        comma_found = True
-    if comma_found:
         split_string()
         print("First word: %s" % words[0])
         print("Second word: %s\n" % words[1])
