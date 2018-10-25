@@ -7,7 +7,7 @@ column2 = []
 comma = ','
 
 def get_chart_data():
-    global column1, column2
+     
     data_str = input("\nEnter a data point (-1 to stop input):\n")
 
     while data_str != '-1':
@@ -32,7 +32,7 @@ def get_chart_data():
             column1.append(parts[0])
             column2.append(parts[1])
             print("Data string: %s" % parts[0])
-            print("Data integer: %d" % parts [1])
+            print("Data integer: %d" % parts[1])
         data_str = input("\nEnter a data point (-1 to stop input):\n")
 
 def get_chart():
