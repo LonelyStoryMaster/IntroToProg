@@ -11,6 +11,7 @@ def letters_to_telephone():
                       6: ['M', 'N', 'O'], 7: ['P', 'Q', 'R', 'S'], 8: ['T', 'U', 'V'],
                       9: ['W', 'X', 'Y', 'Z']}
     number = input("Enter a telephone number in the format XXX-XXX-XXXX:\n")
+    number = number.upper()
     number_parts = number.split('-')
     for part in number_parts:
         part_index = number_parts.index(part)
@@ -19,12 +20,12 @@ def letters_to_telephone():
             try:
                 ch = int(ch)
             except ValueError:
-                for i in range(2, 10):
-                    if ch in letter_numbers[i]:
-                        parts.append(i)
+                for letter in letter_numbers:
+                    if ch in letter_numbers[letter]:
+                        parts.append(letter)
                         continue
-                    else:
-                        print("Error: Unexpected character")
+                    # else:
+                    #     print("Error: Unexpected character: %s" % ch)
             else:
                 parts.append(ch)
         new_part = ''
@@ -39,7 +40,7 @@ def count_consonants(string):
     for ch in string.lower():
         if ch in consonants:
             count += 1
-    print(count)
+    print("Number of consonants found:", count)
     return count
 
 def count_vowels(string):
@@ -48,8 +49,14 @@ def count_vowels(string):
     for ch in string.lower():
         if ch in vowels:
             count += 1
-    print(count)
+    print("Number of vowels found:", count)
     return count
+
+def count_things():
+    user_input = input("Please enter a string:\n")
+    user_input = user_input.lower()
+    count_consonants(user_input)
+    count_vowels(user_input)
 
 def pig_latin():
     sentance = input("Enter a phrase to be translated:\n")
@@ -69,3 +76,8 @@ def pig_latin():
         pig_sentance += new_word + ' '
     print(pig_sentance)
     return pig_sentance
+
+if __name__ == '__main__':
+    # intials()
+    letters_to_telephone()
+    # count_things()

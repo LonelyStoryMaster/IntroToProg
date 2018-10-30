@@ -1,0 +1,19 @@
+import random
+
+alphabet = ['a', 'b','c','d','e', 'f','g','h','i', 'j','k','l','m','n','o', 'p','q','r','s','t','u', 'v','w','x','y','z']
+origin_alphabet = ['a', 'b','c','d','e', 'f','g','h','i', 'j','k','l','m','n','o', 'p','q','r','s','t','u', 'v','w','x','y','z']
+
+count = 1
+
+for i in range(10):
+	for letter in alphabet:
+		cap_chance = random.randint(0, 100)
+		if 40 < cap_chance < 60: 
+			alphabet[alphabet.index(letter)] = alphabet * count
+		else:
+			alphabet[alphabet.index(letter)] = origin_alphabet[alphabet.index(letter)] * count
+	for letter in alphabet:
+		print(letter)
+	count += 1
+
+☻
