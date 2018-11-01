@@ -1,7 +1,7 @@
 def sort_dict(dict_to_sort, reverse=False):
     new_dict = {}
     tup_list = sorted(dict_to_sort.items())
-    # So we can sort high-to-low and not low-to-high if we want 
+    # So we can sort high-to-low and not low-to-high if we want to 
     if reverse:
         tup_list.reverse()
     for tup in tup_list:
