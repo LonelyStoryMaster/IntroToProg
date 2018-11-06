@@ -10,8 +10,9 @@ def sort_dict(dict_to_sort, reverse=False):
 
 def get_players(players, num_players=1):
     for i in range(num_players):
-        player_num = int(input("Enter player %d's jersey number:\n" % (i + 1)))
-        player_rating = int(input("Enter player %d's rating:\n" % (i + 1)))
+        current_num = i + 1
+        player_num = int(input("Enter player {current_num}'s jersey number:\n".format(current_num=current_num)))
+        player_rating = int(input("Enter player {current_num}'s rating:\n".format(current_num=current_num)))
         print()
         players[player_num] = player_rating
     return sort_dict(players)
