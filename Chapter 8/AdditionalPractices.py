@@ -73,7 +73,15 @@ def decrypt(codes):
 
 #Problem 4
 def show_off_dict(totally_not_a_dict):
-    pass
+    print("\nThis is a non-formatted dictionary:\n%s" % totally_not_a_dict)
+    print("\nThis is all the keys from the dictionary:\n%s" % totally_not_a_dict.keys())
+    print("\nThis is all the values from the dictionary:\n%s" % totally_not_a_dict.values())
+    totally_not_a_dict['sandwich'] = 'food'
+    print("\nLet's add a new element called 'sandwich' with the value 'food':\n%s" % totally_not_a_dict)
+    totally_not_a_dict.pop('3')
+    print("\nLet's remove the key '3' now:\n%s" % totally_not_a_dict)
+    totally_not_a_dict.clear()
+    print("Let's wipe the slate clean and restart the dictionary now:\n%s" % totally_not_a_dict)
 
 if __name__ == '__main__':
     # rainfall()
@@ -86,7 +94,6 @@ if __name__ == '__main__':
              '7': 'ç', '8': '└', '9': '◘', '!': '§', '*': 'δ', '+': '╧', '-': 'Σ', '/': 'ⁿ', ',': 'Ü', '.': '╕',
              '?': '╫', ':': '▀', ';': '█', '"': '├', "'": '╚', '(': '¡', ')': '╔', '_': 'Ω', '[': '╜', ']': '"',
              '{': '₧', '}': '╓'}
-    # encrypt(codes)
-    # encrypt(codes)
-    list_to_show = [1, 423, 234235, 123, 23, 632, 123, 0.2, 32]
-    show_off_list()
+    encrypt(codes)
+    # list_to_show = [1, 423, 234235, 123, 23, 632, 123, 0.2, 32]
+    # show_off_list()
