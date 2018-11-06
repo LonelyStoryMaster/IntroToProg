@@ -45,7 +45,7 @@ def print_rating_roster(players):
     print("\nABOVE {rating_check}".format(rating_check=rating_check))
     for jersey, rating in players.items():
         if rating > rating_check:
-            print("Jersey number: {jersey}, Rating: {rating}".format(jersey=jersey, rating=rating))
+            print("Jersey number: {}, Rating: {}".format(jersey, rating))
     return players
 
 commands = {'o': print_roster, 'a': get_players, 'd': remove_player, 'u': update_rating, 'r': print_rating_roster}
