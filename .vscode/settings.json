@@ -1,7 +1,7 @@
 {
     "python.linting.enabled": true,
     "python.linting.pylintEnabled": true,
-    "python.autoComplete.addBrackets": true, 
+    "python.autoComplete.addBrackets": true,
     // "python.pythonPath": "C:\\Users\\Gaming\\AppData\\Local\\Programs\\Python\\Python37-32"
     "python.pythonPath": "C:\\Users\\ja_menze\\AppData\\Local\\Programs\\Python\\Python37-32"
 }

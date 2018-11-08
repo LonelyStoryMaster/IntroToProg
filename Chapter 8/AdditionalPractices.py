@@ -83,8 +83,9 @@ def show_off_dict(totally_not_a_dict):
     totally_not_a_dict.clear()
     print("Let's wipe the slate clean and restart the dictionary now:\n%s" % totally_not_a_dict)
 
+#Running all dis
 if __name__ == '__main__':
-    # rainfall()
+    rainfall()
     codes = {'A': '1', 'a': '♫', 'B': '2', 'b': '@', 'C': '3', 'c': '#', 'D': '4', 'd': '$', 'E': '5', 'e': '%',
              'F': '6', 'f': '^', 'G': '7', 'g': '&', 'H': '8', 'h': '*', 'I': '9', 'i': '▓', 'J': '9', 'j': ')',
              'K': '[', 'k': '{', 'L': ']', 'l': '}', 'M': '≥', 'm': '|', 'N': ';', 'n': ':', 'O': "'", 'o': '♪',
@@ -95,5 +96,7 @@ if __name__ == '__main__':
              '?': '╫', ':': '▀', ';': '█', '"': '├', "'": '╚', '(': '¡', ')': '╔', '_': 'Ω', '[': '╜', ']': '"',
              '{': '₧', '}': '╓'}
     encrypt(codes)
-    # list_to_show = [1, 423, 234235, 123, 23, 632, 123, 0.2, 32]
-    # show_off_list()
+    list_to_show = [1, 423, 234235, 123, 23, 632, 123, 0.2, 32]
+    show_off_list()
+    dict_to_show = {'apple': 'fruit', 'red': 'color', '3': 'number'}
+    show_off_dict(dict_to_show)
