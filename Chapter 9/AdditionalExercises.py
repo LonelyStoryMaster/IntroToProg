@@ -42,7 +42,7 @@ class Employee:
         return self.job_title
 
 # For the Employee Class
-""" 
+
 if __name__ == '__main__':
     employee1 = Employee('Susan Meyers', 47899, 'Accounting', 'Vice President')
     employee2 = Employee('Mark Jones', 39119, 'IT', 'Programmer')
@@ -54,11 +54,11 @@ if __name__ == '__main__':
     print("---------------------------------------------------------------")
     for employee in employees:
         print("%-15s|%-15d|%-15s|%-20s" % (employee.name, employee.id_number, employee.department, employee.job_title))
-"""
+
 
 # For the CellPhone Class
-""" 
-if __name__ == '__main__':
+
+""" if __name__ == '__main__':
     manuf = input("Enter the manufacturer:\n")
     model = input("Enter the model number:\n")
     price = float(input("Enter the retail price:\n"))
@@ -66,5 +66,5 @@ if __name__ == '__main__':
     print("Manufacturer: %s" % manuf)
     print("Model Number: %s" % model)
     print("Retail Price: $%0.2f" % price)
-    new_phone = CellPhone(manuf, model, price)
-"""
+    new_phone = CellPhone(manuf, model, price) """
+
