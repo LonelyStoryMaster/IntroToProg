@@ -1,5 +1,5 @@
 class ItemToPurchase:
-    def __init__(self, item_name='', item_price=0, item_quantity=0, item_description=None):
+    def __init__(self, item_name='none', item_price=0, item_quantity=0, item_description="none"):
         self.item_name = item_name
         self.item_price = item_price
         self.item_quantity = item_quantity
@@ -13,7 +13,7 @@ class ItemToPurchase:
         print("%s: %s" % (self.item_name, self.item_description))
 
 class ShoppingCart:
-    def __init__(self, customer_name=None, current_date='January 1, 2016'):
+    def __init__(self, customer_name="none", current_date='January 1, 2016'):
         self.customer_name = customer_name
         self.current_date = current_date
         self.cart_items = []
@@ -86,3 +86,52 @@ class ShoppingCart:
         print()
         for item in self.cart_items:
             item.print_item_description()
+
+def print_menu():
+    print("MENU")
+    print("a - Add item to cart")
+    print("r - Remove item from cart")
+    print("c - Change item quantity")
+    print("i - Output items' descriptions")
+    print("o - Output shopping cart")
+    print("q - Quit")
+    menu_op = input("\nChoose an option:\n")
+    return menu_op
+
+if __name__ == '__main__':
+    name = input("Enter customer's name:\n")
+    date = input("Enter today's date:\n")
+    print("\nCustomer name: %s\nToday's date: %s" % (name, date))
+
+    new_cart = ShoppingCart(name, date)
+
+    op = print_menu()
+
+    while op != 'q':
+        if op == 'o':
+            print("OUTPUT SHOPPING CART")
+            new_cart.print_total()
+        elif op == 'i':
+            print("OUPUT ITEM's DESCRIPTIONS")
+            new_cart.print_descriptions()
+        elif op == 'a':
+            print("ADD ITEM TO CART")
+            name = input("Enter the item name:\n")
+            description = input("Enter the item description:\n")
+            price = float(input("Enter the item price:\n"))
+            quantity = int(input("Enter the item quantity:\n"))
+            new_item = ItemToPurchase(name, price, quantity, description)
+            new_cart.add_item(new_item)
+        elif op == 'r':
+            print("REMOVE ITEM FROM CART")
+            name = input("Enter name of item to remove:\n")
+            new_cart.remove_item(name)
+        elif op == 'c':
+            print("CHANGE ITEM QUANTITY")
+            name = input("Enter the item name:\n")
+            quantity = int(input("Enter the new quantity:\n"))
+            modified_item = ItemToPurchase(item_name=name, item_quantity=quantity)
+            new_cart.modify_item(modified_item)
+        else:
+            op = input("\nChoose an option:\n")
+        op = print_menu()
