@@ -1,6 +1,6 @@
 # Read file contents
 print('Reading in data...')
-f = open('F:\\CIS1415\\IntroToProgramming\\Chapter 12\\Figures\\TextFiles\\12.1.2.txt')
+f = open('../TextFiles/12.1.2.txt')
 lines = f.readlines()
 f.close()
 
