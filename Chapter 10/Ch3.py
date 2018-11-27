@@ -6,10 +6,16 @@ paint_colors = {
    'green': 23
 }
 
+wall_area = 0.0
+
 try:
    wall_height = float(input('Enter wall height (feet):\n'))
    wall_width = float(input('Enter wall width (feet):\n'))
+except ValueError:
+   print("Value isn't float or integer")
+else:
    wall_area = wall_height * wall_width
+finally:
    print('Wall area:', int(wall_area), 'square feet')
    
    gallons_needed = wall_area / 350
@@ -22,5 +28,3 @@ try:
    color_choice = input("Choose a color to paint the wall:\n")
    color_cost = int(paint_colors[color_choice])
    print("Cost of purchasing %s paint: $%d" % (color_choice, int(color_cost * cans_needed)))
-except ValueError:
-   print("Values entered aren't floats")
