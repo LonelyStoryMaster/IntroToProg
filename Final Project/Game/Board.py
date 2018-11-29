@@ -36,6 +36,20 @@ class Board:
             return True
         return False
 
+    def __check_pos_valid(self, move_pos):
+        pos_valid = []
+        for pos in move_pos:
+            if pos > (len(self.contents[0]) - 1):
+                pos_valid.append(False)
+            elif pos < 0:
+                pos_valid.append(False)
+            else:
+                pos_valid.append(True)
+        if pos_valid.count(True) == 2:
+            return True
+        else:
+            return False
+
     def __display_row(self, row):
         pos = 0
         print(" ", end='')
@@ -44,6 +58,28 @@ class Board:
             if pos != 2:
                 print(' │ ', end='')
             pos += 1
+
+    def __get_move_pos(self):
+        move_pos = [None, None]
+        try:
+            xcoord = int(input("\nEnter the the row to play in going from the top: "))
+            ycoord = int(input("Enter the column to play in going from the left: "))
+        except ValueError:
+            print("Sorry but your input isn't an integer")
+        move_pos = [xcoord, ycoord]
+        return move_pos
+
+    def __make_move(self, move_pos, token):
+        # Pass in a tuple for the pos
+        move_made = False
+        if self.__check_pos_valid(move_pos) == False:
+            print("Sorry, (%d, %d) isn't a valid playing location" % (move_pos[1], move_pos[0]))
+        elif self.__is_played(move_pos):
+            print("Sorry, that spot has been played")
+        else:
+            self.contents[move_pos[0]][move_pos[1]] = token
+            move_made = True
+        return move_made
 
     def display_board(self):
         row_num = 0
@@ -54,33 +90,28 @@ class Board:
             row_num += 1
             print()
 
-    def __make_move(self, move_pos, token):
-        # Pass in a tuple for the pos
-        move_made = False
-        if self.__is_played(move_pos):
-            print("Sorry, that spot has been played")
-        else:
-            self.contents[move_pos[0]][move_pos[1]] = token
-            move_made = True
-        return move_made
-
     def update_board(self, move_pos, token):
         move_done = self.__make_move(move_pos, token)
         while move_done != True:
-            move_done = self.__make_move(move_pos, token)
+            move_pos = self.__get_move_pos()
+            if move_pos[0] is None:
+                move_pos = self.__get_move_pos()
+            else:
+                move_done = self.__make_move(move_pos, token)
         return self.__check_for_end()
 
 def play_game(Board, token1, token2):
     tokens = [token1, token2]
-    while test.won != True:
+    while Board.won != True:
         for player in [1, 2]:
             print()
-            test.display_board()
+            Board.display_board()
             print("It's player %d's turn" % player)
-            xcoord = int(input("\nEnter the x-coordinate of spot going from the left: "))
-            ycoord = int(input("Enter the y-coordinate of spot going from the top: "))
-            done = test.update_board([ycoord,xcoord], tokens[player - 1])
+            xcoord = int(input("\nEnter the the row to play in going from the top: "))
+            ycoord = int(input("Enter the column to play in going from the left: "))
+            done = Board.update_board([xcoord, ycoord], tokens[player - 1])
             if done == True:
+                Board.display_board()
                 input()
                 break
 
