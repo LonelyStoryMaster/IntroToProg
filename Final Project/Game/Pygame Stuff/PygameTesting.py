@@ -7,7 +7,6 @@
 
 # import necessary modules
 import pygame
-from pygame.locals import *
 
 # declare our global variables for the game
 XO   = "X"   # track whose turn it is; X goes first
@@ -203,9 +202,9 @@ running = 1
 
 while (running == 1):
     for event in pygame.event.get():
-        if event.type is QUIT:
+        if event.type is pygame.QUIT:
             running = 0
-        elif event.type is MOUSEBUTTONDOWN:
+        elif event.type is pygame.MOUSEBUTTONDOWN:
             # the user clicked; place an X or O
             clickBoard(board)
 
