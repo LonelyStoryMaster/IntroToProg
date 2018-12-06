@@ -1,25 +1,18 @@
 import pygame
 
 class TestingBoard:
-    def __init__(self, ttt, startx, starty, colWidth, bgColor=(250, 250, 250)):
+    def __init__(self, ttt, startx, starty, colWidth, background):
         self.XO   = "X"   # track whose turn it is; X goes first
         self.grid = [[' ',' ',' '],[' ',' ',' '],[' ',' ',' ']]
         self.win_condition_pos = [[[0,0],[0,1],[0,2]], [[1,0],[1,1],[1,2]], [[2,0],[2,1],[2,2]],
                    [[0,0],[1,0],[2,0]], [[0,1],[1,1],[2,1]], [[2,0],[1,1],[0,2]],
                    [[0,0],[1,1],[2,2]], [[2,0],[1,1],[0,2]]]
-        self.background = None
+        self.background = background
         self.won = None
         self.win_token = ' '
-
-    # def initBoard(self, ttt, startx, starty, colWidth, bgColor=(250, 250, 250)):
-        # set up the background surface
         self.colWidth = colWidth
         self.startX = startx
         self.startY = starty
-        self.board_size = ttt.get_size()
-        self.background = pygame.Surface(self.board_size)
-        self.background = self.background.convert()
-        self.background.fill(bgColor)
 
         # draw the grid lines
         # vertical lines...
@@ -71,7 +64,7 @@ class TestingBoard:
         board.blit(text, ((self.startX + 10), (self.startY + 300)))
     
     def showBoard (self, ttt):
-        self.drawStatus (self.background)
+        # self.drawStatus (self.background)
         ttt.blit (self.background, (0, 0))
         pygame.display.flip()
 
@@ -129,12 +122,17 @@ class TestingBoard:
             self.XO = "O"
         else:
             self.XO = "X"
+        return (row, col)
 
     def gameWon(self):
         return self.__check_for_draw() or self.__check_for_win()
 
+class BigBoard:
+    def __init__(self, board_width, bg_color=(250,250,250)):
+        self.board_width = 0
+
 pygame.init()
-ttt = pygame.display.set_mode ((600, 625))
+ttt = pygame.display.set_mode ((1000, 1000))
 pygame.display.set_caption ('Tic-Tac-Toe')
 
 board_size = ttt.get_size()
@@ -142,7 +140,9 @@ background = pygame.Surface(board_size)
 background = background.convert()
 background.fill((250, 250, 250))
 
-boards = [[TestingBoard(ttt, 0, 0, 50), TestingBoard(ttt, 150, 0, 50), TestingBoard(ttt, 300, 0, 50)]]
+boards = [[TestingBoard(ttt, 50, 50, 10, background), TestingBoard(ttt, 250, 50, 50, background), TestingBoard(ttt, 450, 50, 50, background)],
+           [TestingBoard(ttt, 50, 250, 50, background), TestingBoard(ttt, 250, 250, 50, background), TestingBoard(ttt, 450, 250, 50, background)],
+           [TestingBoard(ttt, 50, 450, 50, background), TestingBoard(ttt, 250, 450, 50, background), TestingBoard(ttt, 450, 450, 50, background)]]
 
 # main event loop
 running = 1
@@ -152,27 +152,44 @@ while (running == 1):
             running = 0
         elif event.type is pygame.MOUSEBUTTONDOWN:
             board_select = pygame.mouse.get_pos()
-            if board_select[0] < 150:
-                if board_select[1] < 150:
+            # Variables for easier reading
+            board_width = 150
+
+            leftColBegin = boards[0][0].startX
+            centerColBegin = boards[0][1].startX
+            endColBegin = boards[0][2].startX
+            topRowBegin = boards[0][0].startY
+            middleRowBegin = boards[1][0].startY
+            endRowBegin = boards[2][0].startY
+
+            LeftColEnd = boards[0][0].startX + board_width
+            centerColEnd = boards[0][1].startX + board_width
+            endColEnd = boards[0][2].startX + board_width
+            topRowEnd = boards[0][0].startY + board_width
+            middleRowEnd = boards[1][0].startY + board_width
+            endRowEnd = boards[2][0].startY + board_width
+            # Logic
+            if leftColBegin < board_select[0] < LeftColEnd:
+                if topRowBegin < board_select[1] < topRowEnd:
                     boards[0][0].clickBoard()
-                elif board_select[1] < 300:
-                    pass
-                else:
-                    pass
-            elif board_select[0] < 300:
-                if board_select[1] < 150:
+                elif middleRowBegin < board_select[1] < middleRowEnd:
+                    boards[1][0].clickBoard()
+                elif endRowBegin < board_select[1] < endRowEnd:
+                    boards[2][0].clickBoard()
+            elif centerColBegin < board_select[0] < centerColEnd:
+                if topRowBegin < board_select[1] < topRowEnd:
                     boards[0][1].clickBoard()
-                elif board_select[1] < 300:
-                    pass
-                else:
-                    pass
-            else:
-                if board_select[1] < 150:
+                elif middleRowBegin < board_select[1] < middleRowEnd:
+                    boards[1][1].clickBoard()
+                elif endRowBegin < board_select[1] < endRowEnd:
+                    boards[2][1].clickBoard()
+            elif endColBegin < board_select[0] < endColEnd:
+                if topRowBegin < board_select[1] < topRowEnd:
                     boards[0][2].clickBoard()
-                elif board_select[1] < 300:
-                    pass
-                else:
-                    pass
+                elif middleRowBegin < board_select[1] < middleRowEnd:
+                    boards[1][2].clickBoard()
+                elif endRowBegin < board_select[1] < endRowEnd:
+                    boards[2][2].clickBoard()
         for row in boards:
             for board in row:
                 board.gameWon()
