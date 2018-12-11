@@ -6,7 +6,7 @@ class TestingBoard:
         self.XO   = "X"   # track whose turn it is; X goes first
         self.grid = [[' ',' ',' '],[' ',' ',' '],[' ',' ',' ']]
         self.win_condition_pos = [[[0,0],[0,1],[0,2]], [[1,0],[1,1],[1,2]], [[2,0],[2,1],[2,2]],
-                   [[0,0],[1,0],[2,0]], [[0,1],[1,1],[2,1]], [[2,0],[1,1],[0,2]],
+                   [[0,0],[1,0],[2,0]], [[0,1],[1,1],[2,1]], [[0,2],[1,2],[2,2]],
                    [[0,0],[1,1],[2,2]], [[2,0],[1,1],[0,2]]]
         self.background = background
         self.won = False
@@ -45,6 +45,7 @@ class TestingBoard:
                     starty = (pos1[0] + 1) * self.colWidth - (self.colWidth / 2)
                     endx = (pos3[1] + 1) * self.colWidth - (self.colWidth / 2)
                     endy = (pos3[0] + 1) * self.colWidth - (self.colWidth / 2)
+                    # TODO Add in change of color for win line
                     pygame.draw.line (self.background, (250,0,0), (startx + self.startX, starty + self.startY), (endx + self.startX, endy + self.startY), 4)
                 self.won = True
                 self.win_token = board[pos1[0]][pos1[1]]
@@ -102,6 +103,7 @@ class TestingBoard:
         (row, col) = self.boardPos(mouseX, mouseY)
 
         # make sure no one's used this space
+        # TODO Fix return of None if space is played
         if self.__is_played((row, col)) == True:
             return
 
@@ -121,6 +123,9 @@ class BigBoard:
         self.boards = []
         self.won = False
         self.XO = 'X'
+        self.XOColor = ()
+        self.XColor = (250,0,0)
+        self.YColor = (15,2,255)
         self.win_condition_pos = [[[0,0],[0,1],[0,2]], [[1,0],[1,1],[1,2]], [[2,0],[2,1],[2,2]],
                    [[0,0],[1,0],[2,0]], [[0,1],[1,1],[2,1]], [[2,0],[1,1],[0,2]],
                    [[0,0],[1,1],[2,2]], [[2,0],[1,1],[0,2]]]
@@ -148,7 +153,8 @@ class BigBoard:
         num_boards = math.sqrt(self.num_boards)
         num_cols = num_boards * 4
         num_rows = num_cols
-        self.__init_board((int((num_cols + 1) * self.col_width), int((num_cols + 1) * self.col_width)), num_boards)
+        screen_length = int((num_cols + 1) * self.col_width)
+        self.__init_board((screen_length, screen_length), num_boards)
         self.col_width = self.board_size[0] / num_cols
         startY = self.col_width / 2
         for i in range(int(num_rows) + 1):
@@ -161,18 +167,8 @@ class BigBoard:
             startY += (self.col_width * 4)
 
     def __within_tol(self, val, start, stop):
+        # print("Start: %d < Val: %d < End: %d" % (start, val, stop))
         return start < val < stop
-
-    def __select_board(self, mouse_pos):
-        board_length = self.col_width * 3
-        for i in range(len(self.boards)):
-            for j in range(len(self.boards[0])):
-                start_x = self.boards[i][j].startX
-                start_y = self.boards[i][j].startY
-                if self.__within_tol(mouse_pos[0], start_x, start_x + board_length) and \
-                   self.__within_tol(mouse_pos[1], start_y, start_y + board_length):
-                   pos = self.boards[i][j].clickBoard()
-                   break
 
     def __play_board(self, board_pos):
         new_pos = self.boards[board_pos[0]][board_pos[1]].clickBoard()
@@ -184,10 +180,11 @@ class BigBoard:
             pos2 = condition[1]
             pos3 = condition[2]
             board = self.boards
-            if board[pos1[0]][pos1[1]].won == board[pos2[0]][pos2[1]].won == board[pos3[0]][pos3[1]].won != False:
+            if board[pos1[0]][pos1[1]].won == board[pos2[0]][pos2[1]].won == board[pos3[0]][pos3[1]].won != False and \
+               board[pos1[0]][pos1[1]].win_token == board[pos2[0]][pos2[1]].win_token == board[pos3[0]][pos3[1]].win_token:
                 start_pos = board[pos1[0]][pos1[1]].return_center()
                 end_pos = board[pos3[0]][pos3[1]].return_center()
-                pygame.draw.line(self.background, (250,0,0), (start_pos[0], start_pos[1]), (end_pos[0], end_pos[1]), 8)
+                pygame.draw.line(self.background, self.XColor, (start_pos[0], start_pos[1]), (end_pos[0], end_pos[1]), 8)
                 self.won = True
                 self.win_token = board[pos1[0]][pos1[1]].win_token
         return self.won
@@ -202,8 +199,9 @@ class BigBoard:
                 if event.type is pygame.QUIT:
                     running = 0
                 elif event.type is pygame.MOUSEBUTTONDOWN:
-                    new_pos = pygame.mouse.get_pos()
+                    # new_pos = pygame.mouse.get_pos()
                     # print("Board pos:", self.boards[board_pos[0]][board_pos[1]].self_pos)
+                    # print("New pos:", new_pos)
                     if (self.__within_tol(new_pos[0], self.boards[board_pos[0]][board_pos[1]].startX, self.boards[board_pos[0]][board_pos[1]].startX + (self.col_width * 3))) and \
                        (self.__within_tol(new_pos[1], self.boards[board_pos[0]][board_pos[1]].startY, self.boards[board_pos[0]][board_pos[1]].startY + (self.col_width * 3))):
                         board_pos = self.boards[board_pos[0]][board_pos[1]].clickBoard(self.XO)
@@ -211,8 +209,10 @@ class BigBoard:
                         # toggle XO to the other player's move
                         if (self.XO == "X"):
                             self.XO = "O"
+                            self.XOColor = self.YColor
                         else:
                             self.XO = "X"
+                            self.XOColor = self.XColor
                     else:
                         print("oops")
                     # print("Next pos:", board_pos)
@@ -223,10 +223,11 @@ class BigBoard:
                     if self.won == True:
                         running = 0
                     # update the display
+                    # TODO Add turn display and proper win/draw message
                     board.showBoard(self.ttt)
             self.game_won()
         else:
-            print("%s Won" % self.win_token)
+            print("%s Won" % self.XO)
 
-big_board = BigBoard(9, 75, bg_color=(73,73,73))
+big_board = BigBoard(36, 25, bg_color=(73,73,73))
 big_board.play_game()

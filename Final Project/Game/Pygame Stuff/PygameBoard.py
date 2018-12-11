@@ -5,7 +5,7 @@ class TestingBoard:
         self.XO   = "X"   # track whose turn it is; X goes first
         self.grid = [[' ',' ',' '],[' ',' ',' '],[' ',' ',' ']]
         self.win_condition_pos = [[[0,0],[0,1],[0,2]], [[1,0],[1,1],[1,2]], [[2,0],[2,1],[2,2]],
-                   [[0,0],[1,0],[2,0]], [[0,1],[1,1],[2,1]], [[2,0],[1,1],[0,2]],
+                   [[0,0],[1,0],[2,0]], [[0,1],[1,1],[2,1]], [[0,2],[1,2],[2,2]],
                    [[0,0],[1,1],[2,2]], [[2,0],[1,1],[0,2]]]
         self.background = background
         self.won = None
@@ -140,7 +140,7 @@ background = pygame.Surface(board_size)
 background = background.convert()
 background.fill((250, 250, 250))
 
-boards = [[TestingBoard(ttt, 50, 50, 10, background), TestingBoard(ttt, 250, 50, 50, background), TestingBoard(ttt, 450, 50, 50, background)],
+boards = [[TestingBoard(ttt, 50, 50, 50, background), TestingBoard(ttt, 250, 50, 50, background), TestingBoard(ttt, 450, 50, 50, background)],
            [TestingBoard(ttt, 50, 250, 50, background), TestingBoard(ttt, 250, 250, 50, background), TestingBoard(ttt, 450, 250, 50, background)],
            [TestingBoard(ttt, 50, 450, 50, background), TestingBoard(ttt, 250, 450, 50, background), TestingBoard(ttt, 450, 450, 50, background)]]
 
