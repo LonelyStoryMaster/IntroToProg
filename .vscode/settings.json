@@ -2,6 +2,6 @@
     "python.linting.enabled": true,
     "python.linting.pylintEnabled": true,
     "python.autoComplete.addBrackets": true,
-    "python.pythonPath": "C:\\Program Files (x86)\\Python37-32\\python.exe",
+    "python.pythonPath": "C:\\Users\\ja_menze\\AppData\\Local\\Programs\\Python\\Python37-32\\python.exe",
     // "java.home": "C:\\Program Files\\Java\\jdk-11.0.1"
 }
