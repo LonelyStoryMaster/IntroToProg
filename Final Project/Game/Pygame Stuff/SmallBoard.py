@@ -1,3 +1,5 @@
+import math, pygame
+
 class SmallBoard:
     def __init__(self, ttt, startx, starty, colWidth, background, lineColor, xcolor, ocolor):
         self.XO   = "X"   # track whose turn it is; X goes first

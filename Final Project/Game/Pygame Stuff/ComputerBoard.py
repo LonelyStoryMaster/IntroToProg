@@ -72,6 +72,14 @@ class TwoPlayerBoard:
         new_pos = self.boards[board_pos[0]][board_pos[1]].clickBoard()
         return new_pos
 
+    def __pick_computer_spot(self, board_pos):
+        open_spots = []
+        for row in self.boards[board_pos[0]][board_pos[1]].grid:
+            for spot in row:
+                if spot == ' ':
+                    open_spots.append((self.boards[board_pos[0]][board_pos[1]].grid.index(row), row.index(spot)))
+        spot = random.randint(0, len(open_spots))
+
     def game_won(self):
         for condition in self.win_condition_pos:
             pos1 = condition[0]

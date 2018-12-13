@@ -17,11 +17,12 @@ class TwoPlayerBoard:
         self.XOColor = (250,0,0)
         self.running = 1
         self.win_condition_pos = [[[0,0],[0,1],[0,2]], [[1,0],[1,1],[1,2]], [[2,0],[2,1],[2,2]],
-                   [[0,0],[1,0],[2,0]], [[0,1],[1,1],[2,1]], [[2,0],[1,1],[0,2]],
+                   [[0,0],[1,0],[2,0]], [[0,1],[1,1],[2,1]], [[0,2],[1,2],[2,2]],
                    [[0,0],[1,1],[2,2]], [[2,0],[1,1],[0,2]]]
         
     def __init_board(self, screen_size, num_boards):
         self.ttt = pygame.display.set_mode((screen_size))
+        pygame.display.set_caption ('Tic-Tac-Toe')
         
         self.board_size = self.ttt.get_size()
         self.background = pygame.Surface(self.board_size)
@@ -96,7 +97,7 @@ class TwoPlayerBoard:
         self.__gen_boards()
         # main event loop
         board_pos = (1,1)
-        last_board_pos = ()
+        last_board_pos = (1,1)
         self.__draw_board_outline(board_pos, self.XOColor)
         while (self.running == 1):
             for event in pygame.event.get():
@@ -104,6 +105,7 @@ class TwoPlayerBoard:
                     self.running = 0
                 elif event.type is pygame.MOUSEBUTTONDOWN:
                     new_pos = pygame.mouse.get_pos()
+                    # DEBUG
                     # print("Board pos:", self.boards[board_pos[0]][board_pos[1]].self_pos)
                     # print("New pos:", new_pos)
                     if (self.__within_tol(new_pos[0], self.boards[board_pos[0]][board_pos[1]].startX, self.boards[board_pos[0]][board_pos[1]].startX + (self.col_width * 3))) and \
@@ -120,12 +122,13 @@ class TwoPlayerBoard:
                             else:
                                 self.XO = "X"
                                 self.XOColor = self.XColor
-
-                        print("New pos: %s, Last pos: %s" % (board_pos, last_board_pos))
+                        # DEBUG
+                        # print("New pos: %s, Last pos: %s" % (board_pos, last_board_pos))
                         if len(last_board_pos) != 0:
                             self.__draw_board_outline(last_board_pos, self.bg_color)
                         self.__draw_board_outline(board_pos, self.XOColor)
                         last_board_pos = board_pos
+                    # DEBUG
                     # print("Next pos:", board_pos)
 
             for row in self.boards:
@@ -138,3 +141,6 @@ class TwoPlayerBoard:
             # if self.won == True:
             #     self.running = 0
 
+if __name__ == '__main__':
+    big_board = TwoPlayerBoard(9, 50)
+    big_board.play_game()
